@@ -1,0 +1,28 @@
+struct TreeNode {
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+// Runtime: 0 ms
+
+class Solution {
+public:
+	bool isSameTree(TreeNode* p, TreeNode* q) {
+		// return (!p && !q) || (p && q) && p->val==q->val && isSameTree(p->left,q->left) && isSameTree(p->right,q->right);
+		if (!p && !q) {
+			return true;
+		}
+		else if (!p || !q) {
+			return false;
+		}
+		else {
+			if (p->val == q->val) {
+				return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+			}
+			else {
+				return false;
+			}
+		}
+	}
+};
