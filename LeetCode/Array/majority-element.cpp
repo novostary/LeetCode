@@ -1,4 +1,5 @@
 #include <vector>
+#include <cstdlib>
 using std::vector;
 // Runtime: 16 ms
 class Solution {
@@ -21,5 +22,21 @@ public:
 			}
 		}
 		return maj;
+	}
+
+	int majorityElement2(vector<int>& nums) {
+		int size = nums.size();
+		while (true) {
+			int r = nums[rand() % size];
+			int count = 0;
+			for (int i = 0; i < size; i++) {
+				if (r == nums[i]) {
+					count++;
+				}
+			}
+			if (count > size >> 1) {
+				return r;
+			}
+		}
 	}
 };
