@@ -4,6 +4,10 @@ using namespace std;
 // Runtime: 4 ms
 // Best: 0 ms done
 // to_string
+
+// 错误	1	error C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型	d:\qprograms\c\poj\poj\tmp.cpp	66	1	POJ
+// cout << s.fractionToDecimal(-1, -2147483648) << endl;
+// cout << s.fractionToDecimal(-1, 0x80000000) << endl;
 class Solution {
 public:
 	// -1, -2147483648
