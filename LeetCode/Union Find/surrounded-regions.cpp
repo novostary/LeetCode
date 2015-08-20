@@ -15,6 +15,54 @@ public:
 			return;
 		}
 		int ROW = board.size(), COL = board[0].size();
+		int dummyPoint = ROW * COL;
+		UF uf(ROW * COL + 1);
+		for (int i = 0; i < ROW; i++) {
+			if (board[i][0] == 'O') {
+				uf.unionP(i * COL, dummyPoint);
+			}
+			if (board[i][COL - 1] == 'O') {
+				uf.unionP((i + 1) * COL - 1, dummyPoint);
+			}
+		}
+		for (int j = 1; j < COL - 1; j++) {
+			if (board[0][j] == 'O') {
+				uf.unionP(j, dummyPoint);
+			}
+			if (board[ROW - 1][j] == 'O') {
+				uf.unionP((ROW - 1) * COL + j, dummyPoint);
+			}
+		}
+		// 右下其实并没有包含在内，不过因为是边界，所以已经包含在上面了
+		for (int i = 0; i < ROW - 1; i++) {
+			for (int j = 0; j < COL - 1; j++) {
+				if (board[i][j] == 'O') {
+					if (board[i + 1][j] == 'O') {
+						uf.unionP(i * COL + j, (i + 1) * COL + j);
+					}
+					if (board[i][j + 1] == 'O') {
+						uf.unionP(i * COL + j, i * COL + j + 1);
+					}
+				}
+
+			}
+		}
+
+		for (int i = 0; i < ROW; i++) {
+			for (int j = 0; j < COL; j++) {
+				if (!uf.connected(i * COL + j, dummyPoint)) {
+					board[i][j] = 'X';
+				}
+			}
+		}
+	}
+
+	// Runtime: 16 ms
+	void solve1(vector<vector<char>>& board) {
+		if (board.empty() || board[0].empty()) {
+			return;
+		}
+		int ROW = board.size(), COL = board[0].size();
 		queue<pair<int, int>> q;
 		for (int i = 0; i < ROW; i++) {
 			if (board[i][0] == 'O') {
@@ -260,4 +308,56 @@ public:
 	//		}
 	//	}
 	//}
+};
+
+class UF {
+public:
+	UF(int N) {
+		count = N;
+		id = new int[N];
+		weight = new int[N];
+		for (int i = 0; i < N; i++) {
+			id[i] = i;
+			weight[i] = 0;
+		}
+	}
+	~UF() {
+		delete[]id;
+		delete[]weight;
+	}
+	void unionP(int p, int q) {
+		int i = root(p);
+		int j = root(q);
+		if (i == j) {
+			return;
+		}
+		if (weight[i] < weight[j]) {
+			id[i] = j;
+		}
+		else if (weight[i] > weight[j]) {
+			id[j] = i;
+		}
+		else {
+			id[i] = j;
+			weight[j]++;
+		}
+		count--;
+	}
+	bool connected(int p, int q) {
+		return root(p) == root(q);
+	}
+	int getCount() {
+		return count;
+	}
+private:
+	int *id;
+	int *weight;
+	int count;
+	int root(int i) {
+		while (i != id[i]) {
+			id[i] = id[id[i]];
+			i = id[i];
+		}
+		return i;
+	}
 };
