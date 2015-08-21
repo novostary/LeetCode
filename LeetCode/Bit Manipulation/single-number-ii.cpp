@@ -1,6 +1,9 @@
 #include <vector>
 using std::vector;
 // Runtime: 12 ms
+// https://leetcode.com/discuss/6632/challenge-me-thx 
+// https://leetcode.com/discuss/31595/detailed-explanation-generalization-bitwise-operation-numbers general
+// http://blog.csdn.net/novostary/article/details/47812813 my explanation
 class Solution {
 public:
 	int singleNumber(vector<int>& nums) {
