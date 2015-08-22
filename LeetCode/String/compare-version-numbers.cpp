@@ -1,5 +1,8 @@
 #include <string>
+#include <sstream>
 using std::string;
+using std::stringstream;
+
 // https://leetcode.com/discuss/23934/10-line-concise-solution-c
 // https://leetcode.com/discuss/19194/my-solutions-in-3-languages
 // https://leetcode.com/discuss/30652/my-2ms-easy-solution-with-c-c
@@ -7,8 +10,44 @@ using std::string;
 // https://leetcode.com/discuss/19118/accepted-small-java-solution
 class Solution {
 public:
-	// Runtime: 0 ms
 	int compareVersion(string version1, string version2) {
+		for (auto& ch : version1) {
+			if (ch == '.') {
+				ch = ' ';
+			}
+		}
+		for (auto& ch : version2) {
+			if (ch == '.') {
+				ch = ' ';
+			}
+		}
+
+		stringstream ss1(version1);
+		stringstream ss2(version2);
+		int n1, n2;
+		while (1) {
+			// if (not(ss1 >> n1)) {
+			if (!(ss1 >> n1)) {
+				n1 = 0;
+			}
+			if (!(ss2 >> n2)) {
+				n2 = 0;
+			}
+			// if (not ss1 and not ss2) {
+			if (! ss1 && ! ss2) {
+				return 0;
+			}
+			if (n1 < n2) {
+				return -1;
+			}
+			if (n1 > n2) {
+				return 1;
+			}
+		}
+	}
+
+	// Runtime: 0 ms
+	int compareVersion2(string version1, string version2) {
 		// "01", "1"
 		if (version1.empty() && version2.empty()) {
 			return 0;
