@@ -11,9 +11,9 @@ public:
 	TrieNode(char _c) : c(_c), isWord(false) {
 		memset(next, 0, sizeof(TrieNode*)* 26);
 	}
-	//~TrieNode() {
-	//	delete []next;
-	//}
+	~TrieNode() {
+		delete []next;
+	}
 	TrieNode* next[26];
 	char c;
 	bool isWord;
