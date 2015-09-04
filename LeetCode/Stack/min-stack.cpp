@@ -3,7 +3,7 @@
 using std::stack;
 using std::min;
 // https://leetcode.com/discuss/15679/share-my-java-solution-with-only-one-stack
-
+// https://leetcode.com/discuss/48825/accepted-104ms-c-solution-with-maxqueue max queue
 class MinStack { // Runtime: 32 ms
 public:
 	void push(int x) {
