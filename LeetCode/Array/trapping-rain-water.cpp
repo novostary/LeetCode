@@ -1,8 +1,11 @@
 #include <vector>
 #include <algorithm>
+#include <stack>
 using std::vector;
 using std::max;
-
+using std::min;
+using std::stack;
+// http://blog.csdn.net/viclao/article/details/41909595 Stack
 class Solution {
 public:
 	int trap(vector<int>& height) { // Runtime: 8 ms
@@ -47,6 +50,30 @@ public:
 			}
 			level = max(level, lower);
 			water += level - lower;
+		}
+		return water;
+	}
+
+	// Stack
+	int trap3(vector<int>& height) { // Runtime: 12 ms
+		if (height.size() < 3) {
+			return 0;
+		}
+		int water = 0, i = 0;
+		stack<int> s;
+		while (i < height.size()) {
+			if (s.empty() || height[s.top()] >= height[i]) {
+				s.push(i++);
+			}
+			else {
+				int bottom = height[s.top()];
+				s.pop();
+				if (!s.empty()) {
+					int high = min(height[i], height[s.top()]);
+					int length = i - s.top() - 1;
+					water += (high - bottom) * length;
+				}
+			}
 		}
 		return water;
 	}
