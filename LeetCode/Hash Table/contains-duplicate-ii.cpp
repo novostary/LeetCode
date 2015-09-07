@@ -64,6 +64,7 @@ public:
 	     }
 	     return false;
 	 }
+	 static bool cmpptr(const int* &a, const int* &b);
 
 	 // [0,...,29999], 29999
 	 // Time Limit Exceeded
